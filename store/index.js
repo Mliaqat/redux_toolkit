@@ -5,6 +5,6 @@ import authSlice from "./authSlice";
 export default configureStore({
   reducer: {
     userList: userListSlice,
-    auth:authSlice
+    auth: authSlice,
   },
 });

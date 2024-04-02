@@ -1,23 +1,31 @@
 "use client";
 
-import { addUser } from "@/store/userListSlice/userListSlice";
+import {
+  addUser,
+  fetchUser,
+  statusData,
+  userData,
+} from "@/store/userListSlice/userListSlice";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
-  const data = useSelector((state) => state.userList);
+  const data = useSelector(userData);
+  const status = useSelector(statusData);
 
   const dispatch = useDispatch();
 
-  console.log(data, "DATAT");
+  console.log(data, "DATAT", status);
 
-  const handleUser = () => {
-    dispatch(addUser({ name: "NewLiaqat" }));
-  };
-
+  useEffect(() => {
+    if (status == "idle") {
+      dispatch(fetchUser());
+    }
+  }, [status, dispatch]);
   return (
     <>
       <p>Test</p>
-      <button onClick={handleUser} >Add User</button>
+      <button>Add User</button>
     </>
   );
 }
